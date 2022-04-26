@@ -2,7 +2,6 @@ import express from "express";
 import morgan from "morgan";
 import authRouter from "./routes/authRouter.js";
 import spotRouter from "./routes/spotRouter.js";
-
 import "./db/dataBase.js";
 import errorHandler from "./middlewares/errorHandler.js";
 

@@ -1,7 +1,12 @@
 import { Router } from "express";
 import validateJOI from "../middlewares/validateJOI.js";
 import verifyToken from "../middlewares/verifyToken.js";
-import { getAllSpots, createSpot } from "../controllers/spot.js";
+import {
+  getAllSpots,
+  createSpot,
+  getSingleSpot,
+  deleteSpot,
+} from "../controllers/spot.js";
 
 const spotRouter = Router();
 
@@ -10,10 +15,10 @@ spotRouter
   .get(verifyToken, getAllSpots)
   .post(verifyToken, createSpot);
 
-//spotRouter
-//   .route("/:id")
-//   .get(getSinglePost)
-//   .put(verifyToken, validateJOI(spot), updatePost)
-//   .delete(verifyToken, deletePost);
+spotRouter
+  .route("/:id")
+  .get(getSingleSpot)
+  //   .put(verifyToken, validateJOI(spot), updatePost)
+  .delete(verifyToken, deleteSpot);
 
 export default spotRouter;
