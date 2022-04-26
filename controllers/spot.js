@@ -3,7 +3,11 @@ import ErrorResponse from "../utils/ErrorResponse.js";
 import Spot from "../models/Spot.js";
 
 export const getAllSpots = AsyncHandler(async (req, res, next) => {
-  const spots = await Spot.find().populate("owner");
+  const {
+    user: { _id: userId },
+  } = req;
+  console.log(userId);
+  const spots = await Spot.find({ owner: userId }).populate("owner");
   res.json(spots);
 });
 
