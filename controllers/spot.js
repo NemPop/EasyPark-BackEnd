@@ -4,9 +4,21 @@ import Spot from "../models/Spot.js";
 
 export const getAllSpots = AsyncHandler(async (req, res, next) => {
   const {
+    query: { lat, lng, radius },
     user: { _id: userId },
   } = req;
-  const spots = await Spot.find({ owner: userId }).populate("owner");
+  let query = {};
+  if (lat && lng && radius) {
+    query = {
+      "position.location.coordinates": {
+        $geoWithin: {
+          $centerSphere: [[parseFloat(lng), parseFloat(lat)], radius / 3963.2],
+        },
+      },
+    };
+  }
+  console.log(query);
+  const spots = await Spot.find(query).populate("owner");
   res.json(spots);
 });
 
