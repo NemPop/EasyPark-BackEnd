@@ -33,3 +33,7 @@ export const signInUser = AsyncHandler(async (req, res) => {
   const token = jwt.sign({ _id: found._id }, process.env.JWT_SECRET);
   res.status(201).json({ token });
 });
+
+export const getUser = (req, res) => {
+  res.json(req.user);
+};
