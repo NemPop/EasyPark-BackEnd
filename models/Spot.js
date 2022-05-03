@@ -32,6 +32,7 @@ const spotSchema = new Schema({
       {
         startDate: String,
         endDate: String,
+        idBooking: String,
       },
     ],
   },
