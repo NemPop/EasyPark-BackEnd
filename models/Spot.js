@@ -25,9 +25,9 @@ const spotSchema = new Schema({
     select: false,
   },
   time: {
-    avDay: { type: String, required: [true, "avDay is required"] }, //Monday,Tuesdat,Wend
-    avStart: { type: Number, required: [true, "avStart is required"] },
-    avEnd: { type: Number, required: [true, "avEnd is required"] },
+    avDay: { type: [String], required: [true, "avDay is required"] }, //Monday,Tuesdat,Wend
+    avStart: { type: String, required: [true, "avStart is required"] },
+    avEnd: { type: String, required: [true, "avEnd is required"] },
     booked: [
       {
         startDate: String,
