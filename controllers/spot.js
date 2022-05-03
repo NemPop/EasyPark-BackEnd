@@ -6,7 +6,6 @@ export const getAllSpots = AsyncHandler(async (req, res, next) => {
   const {
     user: { _id: userId },
   } = req;
-  console.log(userId);
   const spots = await Spot.find({ owner: userId }).populate("owner");
   res.json(spots);
 });
@@ -38,6 +37,7 @@ export const deleteSpot = AsyncHandler(async (req, res) => {
     params: { id },
     user: { _id: userId },
   } = req;
+  console.log(id, userId);
   const found = await Spot.findById(id);
   if (!found)
     throw new ErrorResponse(`Spot with id of ${id} doesn't exist`, 404);

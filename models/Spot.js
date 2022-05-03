@@ -13,6 +13,18 @@ const spotSchema = new Schema({
     required: [true, "Price is required"],
     select: false,
   },
+  time: {
+    avDay: { type: String, required: [true, "avDay is required"] }, //Monday,Tuesdat,Wend
+    avStart: { type: Number, required: [true, "avStart is required"] },
+    avEnd: { type: Number, required: [true, "avEnd is required"] },
+    booked: [
+      {
+        startDate: String,
+        endDate: String,
+      },
+    ],
+  },
+
   /* array od time and date
   -- in process --
   taxId: { type: String, required: [true, 'Tax Id is required'] },
