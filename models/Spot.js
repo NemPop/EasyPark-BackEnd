@@ -1,11 +1,22 @@
 import mongoose from "mongoose";
-const { Schema, model, ObjectId } = mongoose;
+const { Schema, model, ObjectId, Point } = mongoose;
 
 const spotSchema = new Schema({
   position: {
     address: { type: String, required: [true, "Adress is required"] },
-    lng: { type: String },
-    lat: { type: String },
+    location: {
+      type: {
+        type: String, // Don't do `{ location: { type: String } }`
+        enum: ["Point"], // 'location.type' must be 'Point'
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+      // lng: { type: String },
+      // lat: { type: String },
+    },
   },
   owner: { type: ObjectId, ref: "User", required: [true, "Owner is required"] },
   price: {
