@@ -17,7 +17,6 @@ export const signUpUser = AsyncHandler(async (req, res) => {
     name,
     email,
     password: hash,
-    taxId,
   });
 
   const token = jwt.sign({ _id }, process.env.JWT_SECRET);

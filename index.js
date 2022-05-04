@@ -10,7 +10,6 @@ import multer from "multer";
 const app = express();
 const port = process.env.PORT || 5000;
 process.env.NODE_ENV !== "production" && app.use(morgan("dev"));
-const upload = multer({ dest: "uploads/" }).single("imageURL");
 
 app.listen(port, () =>
   console.log(`Server is running at http://localhost:${port}`)
