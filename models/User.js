@@ -9,7 +9,11 @@ const userSchema = new Schema({
     required: [true, "Password is required"],
     select: false,
   },
-  taxId: { type: String, required: [true, "Tax Id is required"] },
+  taxId: { type: String },
+  // imageURL: {
+  //   data: Buffer,
+  //   contentType: String,
+  // },
 });
 
 export default model("User", userSchema);

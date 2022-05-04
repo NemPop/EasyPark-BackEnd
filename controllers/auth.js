@@ -6,14 +6,19 @@ import jwt from "jsonwebtoken";
 
 export const signUpUser = AsyncHandler(async (req, res) => {
   const {
-    body: { name, email, password, taxId },
+    body: { name, email, password },
   } = req;
-
+  //console.log({ name, email, password, taxId }, file);
   const found = await User.findOne({ email });
   if (found) throw new ErrorResponse("Email already taken");
 
   const hash = await bcrypt.hash(password, 5);
-  const { _id } = await User.create({ name, email, password: hash, taxId });
+  const { _id } = await User.create({
+    name,
+    email,
+    password: hash,
+    taxId,
+  });
 
   const token = jwt.sign({ _id }, process.env.JWT_SECRET);
   res.status(201).json({ token });
@@ -37,3 +42,16 @@ export const signInUser = AsyncHandler(async (req, res) => {
 export const getUser = (req, res) => {
   res.json(req.user);
 };
+
+// export const changeUser = (req, res) => {
+//   const {
+//     body: { name, taxId },
+//     params: { id },
+//   } = req;
+//   const found = User.findById(id);
+//   if (!found)
+//     throw new ErrorResponse(`User with id of ${id} doesn't exist`, 404);
+//   const updatedUser = User.findOneAndUpdate({ _id: id }, { name, taxId });
+//   console.log(updatedUser);
+//   //res.json({ updatedUser });
+// };
