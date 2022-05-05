@@ -12,12 +12,11 @@ export const getAllSpots = AsyncHandler(async (req, res, next) => {
     query = {
       "position.location.coordinates": {
         $geoWithin: {
-          $centerSphere: [[parseFloat(lng), parseFloat(lat)], radius / 3963.2],
+          $centerSphere: [[parseFloat(lat), parseFloat(lng)], radius / 3963.2],
         },
       },
     };
   }
-  console.log(query);
   const spots = await Spot.find(query).populate("owner");
   res.json(spots);
 });
@@ -27,7 +26,7 @@ export const createSpot = AsyncHandler(async (req, res) => {
     body,
     user: { _id: owner },
   } = req;
-
+  console.log(body);
   let newSpot = await Spot.create({ ...body, owner });
 
   newSpot = await newSpot.populate("owner");
