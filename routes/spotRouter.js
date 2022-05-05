@@ -17,7 +17,7 @@ spotRouter
 
 spotRouter
   .route("/:id")
-  .get(getSingleSpot)
+  .get(verifyToken, getSingleSpot)
   //   .put(verifyToken, validateJOI(spot), updatePost)
   .delete(verifyToken, deleteSpot);
 

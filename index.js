@@ -6,8 +6,10 @@ import bookingRouter from "./routes/bookingRouter.js";
 import "./db/dataBase.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import multer from "multer";
+import cors from "cors";
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
 process.env.NODE_ENV !== "production" && app.use(morgan("dev"));
 

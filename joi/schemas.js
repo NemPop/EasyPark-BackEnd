@@ -4,7 +4,7 @@ export const signUp = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().required(),
-  taxId: Joi.number().required(),
+  taxId: Joi.number(),
 });
 
 export const signIn = Joi.object({

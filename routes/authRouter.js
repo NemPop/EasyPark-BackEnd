@@ -14,14 +14,14 @@ import multer from "multer";
 const upload = multer({ dest: "uploads/" }).single("imageURL");
 const authRouter = Router();
 
-authRouter.post(
-  "/signup",
-  //   imageUploader.single("imageURL"),
-  validateJOI(signUp),
-  signUpUser
-);
+authRouter.post("/signup", validateJOI(signUp), signUpUser);
 authRouter.post("/signin", validateJOI(signIn), signInUser);
 authRouter.get("/me", verifyToken, getUser);
-//authRouter.put("/me/:id", verifyToken, changeUser);
+authRouter.put(
+  "/me/:id",
+  verifyToken,
+  imageUploader.single("image"),
+  changeUser
+);
 
 export default authRouter;
