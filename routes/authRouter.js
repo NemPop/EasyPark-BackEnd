@@ -20,7 +20,7 @@ authRouter.get("/me", verifyToken, getUser);
 authRouter.put(
   "/me/:id",
   verifyToken,
-  imageUploader.single("image"),
+  imageUploader.single("imageURL"),
   changeUser
 );
 

@@ -44,10 +44,10 @@ export const getUser = (req, res) => {
 
 export const changeUser = AsyncHandler(async (req, res) => {
   const {
-    body: { name, email, password, taxId },
+    body: { name, email, password },
+    file,
     params: { id },
   } = req;
-
   const found = await User.findById({ _id: id });
   if (!found)
     throw new ErrorResponse(`User with id of ${id} doesn't exist`, 404);
@@ -58,7 +58,8 @@ export const changeUser = AsyncHandler(async (req, res) => {
   const hash = await bcrypt.hash(password, 5);
   const updatedUser = await User.findByIdAndUpdate(
     { _id: id },
-    { name, email, password: hash, taxId }
+    { name, email, password: hash, imageURL: file.imageURL }
   );
+  console.log(req.file.imageURL);
   res.status(201).json(updatedUser);
 });

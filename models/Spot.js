@@ -22,7 +22,6 @@ const spotSchema = new Schema({
   price: {
     type: Number,
     required: [true, "Price is required"],
-    select: false,
   },
   time: {
     avDay: { type: [String], required: [true, "avDay is required"] }, //Monday,Tuesdat,Wend
