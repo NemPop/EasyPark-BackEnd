@@ -8,7 +8,7 @@ export const signUpUser = AsyncHandler(async (req, res) => {
   const {
     body: { name, email, password },
   } = req;
-  //console.log({ name, email, password, taxId }, file);
+
   const found = await User.findOne({ email });
   if (found) throw new ErrorResponse("Email already taken");
 
@@ -42,15 +42,23 @@ export const getUser = (req, res) => {
   res.json(req.user);
 };
 
-// export const changeUser = (req, res) => {
-//   const {
-//     body: { name, taxId },
-//     params: { id },
-//   } = req;
-//   const found = User.findById(id);
-//   if (!found)
-//     throw new ErrorResponse(`User with id of ${id} doesn't exist`, 404);
-//   const updatedUser = User.findOneAndUpdate({ _id: id }, { name, taxId });
-//   console.log(updatedUser);
-//   //res.json({ updatedUser });
-// };
+export const changeUser = AsyncHandler(async (req, res) => {
+  const {
+    body: { name, email, password, taxId },
+    params: { id },
+  } = req;
+
+  const found = await User.findById({ _id: id });
+  if (!found)
+    throw new ErrorResponse(`User with id of ${id} doesn't exist`, 404);
+
+  const match = await User.findOne({ email });
+  if (match) throw new ErrorResponse("Email already taken");
+
+  const hash = await bcrypt.hash(password, 5);
+  const updatedUser = await User.findByIdAndUpdate(
+    { _id: id },
+    { name, email, password: hash, taxId }
+  );
+  res.status(201).json(updatedUser);
+});
