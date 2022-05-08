@@ -26,7 +26,7 @@ export const createSpot = AsyncHandler(async (req, res) => {
     body,
     user: { _id: owner },
   } = req;
-  console.log(body);
+
   let newSpot = await Spot.create({ ...body, owner });
 
   newSpot = await newSpot.populate("owner");
@@ -48,7 +48,7 @@ export const deleteSpot = AsyncHandler(async (req, res) => {
     params: { id },
     user: { _id: userId },
   } = req;
-  console.log(id, userId);
+
   const found = await Spot.findById(id);
   if (!found)
     throw new ErrorResponse(`Spot with id of ${id} doesn't exist`, 404);
