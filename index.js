@@ -8,9 +8,11 @@ import errorHandler from "./middlewares/errorHandler.js";
 import cors from "cors";
 import admin from "firebase-admin";
 import ServiceAccountKey from "firebase-admin";
+import stripeRouter from "./routes/stripeRouter.js";
 
 const app = express();
 app.use(cors());
+app.use(express.static("public"));
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(ServiceAccountKey),
@@ -29,6 +31,6 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/spots", spotRouter);
 app.use("/booking", bookingRouter);
+app.use("/pay", stripeRouter);
 app.use("*", (req, res) => res.status(404));
-
 app.use(errorHandler);
