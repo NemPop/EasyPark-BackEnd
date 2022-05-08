@@ -6,15 +6,17 @@ import {
   createSpot,
   getSingleSpot,
   deleteSpot,
+  onlyMeinSpots,
 } from "../controllers/spot.js";
 
 const spotRouter = Router();
 
 spotRouter
   .route("/")
+
   .get(verifyToken, getAllSpots)
   .post(verifyToken, createSpot);
-
+spotRouter.route("/userId").get(verifyToken, onlyMeinSpots);
 spotRouter
   .route("/:id")
   .get(verifyToken, getSingleSpot)

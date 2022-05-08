@@ -10,10 +10,7 @@ const userSchema = new Schema({
     select: false,
   },
   taxId: { type: String },
-  // imageURL: {
-  //   data: Buffer,
-  //   contentType: String,
-  // },
+  imageURL: { type: String },
 });
 
 export default model("User", userSchema);

@@ -16,7 +16,6 @@ const calculateOrderAmount = (items) => {
 
 stripeRouter.post(
   "/",
-  verifyToken,
   AsyncHandler(async (req, res, next) => {
     const { items } = req.body;
     console.log(items);
