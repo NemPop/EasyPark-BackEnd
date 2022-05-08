@@ -1,6 +1,7 @@
 import AsyncHandler from "../utils/AsyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import Spot from "../models/Spot.js";
+import User from "../models/User.js";
 
 export const getAllSpots = AsyncHandler(async (req, res, next) => {
   const {
@@ -57,4 +58,18 @@ export const deleteSpot = AsyncHandler(async (req, res) => {
   found.des;
   await Spot.deleteOne({ _id: id });
   res.json({ success: `Spot with id of ${id} was deleted` });
+});
+
+export const onlyMeinSpots = AsyncHandler(async (req, res) => {
+  const {
+    user: { _id: id },
+  } = req;
+  console.log(id);
+  const found = await User.findById(id);
+
+  if (!found)
+    throw new ErrorResponse(`User with id of ${id} doesn't exist`, 404);
+
+  const spots = await Spot.find({ owner: id }).populate("owner");
+  res.json(spots);
 });
