@@ -16,7 +16,7 @@ spotRouter
 
   .get(verifyToken, getAllSpots)
   .post(verifyToken, createSpot);
-spotRouter.route("/userId").get(verifyToken, onlyMeinSpots);
+spotRouter.route("/mySpots").get(verifyToken, onlyMeinSpots);
 spotRouter
   .route("/:id")
   .get(verifyToken, getSingleSpot)

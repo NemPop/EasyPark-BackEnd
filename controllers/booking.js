@@ -2,15 +2,21 @@ import AsyncHandler from "../utils/AsyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
 import Booking from "../models/Booking.js";
 import Spot from "../models/Spot.js";
+import User from "../models/User.js";
 
 export const getAllBooking = AsyncHandler(async (req, res, next) => {
   const {
     user: { _id: userId },
   } = req;
 
-  const booking = await Booking.find({ user: userId })
+  let booking = await Booking.find()
     .populate("user")
-    .populate("spot");
+    .populate("spot")
+    .populate({
+      path: "spot",
+      populate: { path: "owner" },
+    });
+
   res.json(booking);
 });
 
@@ -27,7 +33,6 @@ export const createBooking = AsyncHandler(async (req, res) => {
 
   newBooking = await newBooking.populate("user");
   newBooking = await newBooking.populate("spot");
-
   await newBooking.spot.time.booked.push({
     startDate: startDate,
     endDate: endDate,

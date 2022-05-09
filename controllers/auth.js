@@ -27,13 +27,13 @@ export const signInUser = AsyncHandler(async (req, res) => {
   const {
     body: { email, password },
   } = req;
-
+  console.log(email, password);
   const found = await User.findOne({ email }).select("+password");
   if (!found) throw new ErrorResponse("User does not exist");
-
+  console.log(found);
   const match = await bcrypt.compare(password, found.password);
   if (!match) throw new ErrorResponse("Password is incorrect");
-
+  console.log(match);
   const token = jwt.sign({ _id: found._id }, process.env.JWT_SECRET);
   res.status(201).json({ token });
 });
@@ -49,6 +49,7 @@ export const changeUser = AsyncHandler(async (req, res) => {
     params: { id },
   } = req;
   const found = await User.findById({ _id: id });
+
   if (!found)
     throw new ErrorResponse(`User with id of ${id} doesn't exist`, 404);
 
@@ -60,6 +61,6 @@ export const changeUser = AsyncHandler(async (req, res) => {
     { _id: id },
     { name, email, password: hash, imageURL: file.imageURL }
   );
-  console.log(req.file.imageURL);
+
   res.status(201).json(updatedUser);
 });
