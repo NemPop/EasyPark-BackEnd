@@ -11,6 +11,7 @@ const verifyToken = AsyncHandler(async (req, res, next) => {
   if (!authorization) throw new ErrorResponse("Please login", 403);
   const { _id } = jwt.verify(authorization, process.env.JWT_SECRET);
   const user = await User.findById(_id);
+  console.log("HELLO");
   if (!user) throw new ErrorResponse("User does not exist", 403);
   req.user = user;
   next();

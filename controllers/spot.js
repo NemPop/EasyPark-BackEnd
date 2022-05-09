@@ -9,6 +9,7 @@ export const getAllSpots = AsyncHandler(async (req, res, next) => {
     user: { _id: userId },
   } = req;
   let query = {};
+  console.log(lat, lng, radius);
   if (lat && lng && radius) {
     query = {
       "position.location.coordinates": {
