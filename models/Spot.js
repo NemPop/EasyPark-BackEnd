@@ -29,8 +29,8 @@ const spotSchema = new Schema({
     avEnd: { type: String, required: [true, "avEnd is required"] },
     booked: [
       {
-        startDate: String,
-        endDate: String,
+        start: String,
+        end: String,
         idBooking: String,
       },
     ],

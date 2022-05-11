@@ -22,11 +22,11 @@ export const getAllBooking = AsyncHandler(async (req, res, next) => {
 
 export const createBooking = AsyncHandler(async (req, res) => {
   const {
-    body: { startDate, endDate, spot },
+    body: { start, end, spot },
     user: { _id: user },
   } = req;
   let newBooking = await Booking.create({
-    ...{ startDate, endDate },
+    ...{ start, end },
     spot,
     user,
   });
@@ -34,14 +34,14 @@ export const createBooking = AsyncHandler(async (req, res) => {
   newBooking = await newBooking.populate("user");
   newBooking = await newBooking.populate("spot");
   await newBooking.spot.time.booked.push({
-    startDate: startDate,
-    endDate: endDate,
+    start: start,
+    end: end,
     idBooking: newBooking._id,
   });
 
   const booked = {
-    startDate: startDate,
-    endDate: endDate,
+    start: start,
+    end: end,
     idBooking: newBooking._id,
   };
   await Spot.findByIdAndUpdate(
