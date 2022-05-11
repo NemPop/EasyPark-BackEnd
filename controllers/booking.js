@@ -88,3 +88,19 @@ export const deleteBooking = AsyncHandler(async (req, res) => {
 
   res.json({ success: `Booking with id of ${id} was deleted` });
 });
+
+export const onlyMeinBooking = AsyncHandler(async (req, res, next) => {
+  const {
+    user: { _id: id },
+  } = req;
+
+  let booking = await Booking.find({ user: id })
+    .populate("user")
+    .populate("spot")
+    .populate({
+      path: "spot",
+      populate: { path: "owner" },
+    });
+
+  res.json(booking);
+});
