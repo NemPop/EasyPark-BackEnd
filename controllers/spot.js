@@ -65,6 +65,7 @@ export const onlyMeinSpots = AsyncHandler(async (req, res) => {
   const {
     user: { _id: id },
   } = req;
+  console.log(user);
   console.log(id);
   const found = await User.findById(id);
 
