@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const imageUploader = multer({
   storage: FirebaseStorage({
-    bucketName: "gs://easypark-backend.appspot.com",
+    bucketName: process.env.STORAGE_BUCKET_FIREBASE,
     credentials: {
       privateKey: process.env.PRIVATE_KEY_FIREBASE,
       project_id: process.env.PROJECT_ID_FIREBASE,
