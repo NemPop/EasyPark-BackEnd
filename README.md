@@ -8,7 +8,7 @@ BackEnd:
 -FireBase
 -Stripe
 
-https://github.com/SteliosRusta/easypark - FrontEnd
+https://github.com/SteliosRusta/easypark 
 FrontEnd:
 -Typescript
 -Ionic
